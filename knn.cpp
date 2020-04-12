@@ -4,6 +4,9 @@
 #include <chrono>
 #include <stdio.h>
 #include <unistd.h>
+#include <algorithm>
+#include <math.h>
+#include <assert.h>
 
 using namespace std;
 
@@ -29,11 +32,13 @@ class CartesianCoord {
 };
 typedef CartesianCoord < int > coord_t;
 vector <coord_t> knn(int k, vector <coord_t> & points, const coord_t & q) {
-  // KNNS
+  assert(k <= points.size());
 
-
-  // KNNS
-  return vector <coord_t> ();
+  sort(points.begin(), points.end(), [&](const coord_t& p1, const coord_t& p2){
+    // Compare euclidean distances
+    return sqrt(pow((q.x-p1.x), 2) + pow(q.y-p1.y, 2)) < sqrt(pow((q.x-p2.x), 2) + pow(q.y-p2.y, 2));
+  });
+  return vector <coord_t> (points.begin(), points.begin()+k);
 }
 
 
