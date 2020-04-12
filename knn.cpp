@@ -46,7 +46,7 @@ vector <coord_t> knn(int k, vector <coord_t> & points, const coord_t & q) {
 int main() {
   srand(time(NULL));
 
-
+  coord_t target_point(100,200);
   vector < coord_t > points;
   for (int i = 0; i < 1000; i++)
     points.push_back(coord_t(rand() % 1000, rand() % 1000));
@@ -62,13 +62,12 @@ int main() {
   cout << endl;
   vector < coord_t > knns;
   auto start = chrono::high_resolution_clock::now();
-  knns = knn(3, points, coord_t(100, 200));
+  knns = knn(3, points, target_point);
   auto stop = chrono::high_resolution_clock::now();
   auto duration = chrono::duration_cast < chrono::microseconds > (stop - start);
   cout << "Time: " << endl;
   cout << duration.count() << endl;
-
-  cout << "knns" << endl;
+  cout << "KNNs of " << target_point << endl;
   vector < coord_t > ::iterator kit = knns.begin();
   for (; kit != knns.end(); kit++)
     cout << * kit << endl;
